@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Upload, X, Shield } from 'lucide-react';
+import { useState } from 'react';
+import { Upload, X } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -12,35 +12,6 @@ export default function LauncherUpload() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (user) {
-      checkAdminStatus();
-    } else {
-      setLoading(false);
-    }
-  }, [user]);
-
-  const checkAdminStatus = async () => {
-    if (!user) return;
-
-    const { data, error } = await supabase
-      .from('users')
-      .select('is_admin')
-      .eq('id', user.id)
-      .maybeSingle();
-
-    if (error) {
-      console.error('Error checking admin status:', error);
-      setLoading(false);
-      return;
-    }
-
-    setIsAdmin(data?.is_admin || false);
-    setLoading(false);
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -134,14 +105,6 @@ export default function LauncherUpload() {
     return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
   };
 
-  if (loading) {
-    return (
-      <div className="bg-gray-800 rounded-lg p-8 text-center">
-        <p className="text-gray-400">Loading...</p>
-      </div>
-    );
-  }
-
   if (!user) {
     return (
       <div className="bg-gray-800 rounded-lg p-8 text-center">
@@ -150,23 +113,9 @@ export default function LauncherUpload() {
     );
   }
 
-  if (!isAdmin) {
-    return (
-      <div className="bg-gray-800 rounded-lg p-8 text-center">
-        <Shield className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <h3 className="text-xl font-semibold text-white mb-2">Admin Access Required</h3>
-        <p className="text-gray-400">You do not have permission to upload launchers</p>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-gray-800 rounded-lg p-8">
-      <div className="flex items-center gap-2 mb-6">
-        <Shield className="w-6 h-6 text-green-500" />
-        <h3 className="text-2xl font-bold text-white">Upload Launcher</h3>
-        <span className="ml-auto text-xs bg-green-500 bg-opacity-20 text-green-500 px-3 py-1 rounded-full">Admin</span>
-      </div>
+      <h3 className="text-2xl font-bold text-white mb-6">Upload Launcher</h3>
 
       <form onSubmit={handleUpload} className="space-y-6">
         <div>

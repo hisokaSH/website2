@@ -9,7 +9,6 @@ interface UserProfile {
   discord_id: string | null;
   discord_username: string | null;
   discord_verified: boolean;
-  is_admin: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -79,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data: userData, error: userError } = await supabase
         .from('users')
         .select('email')
-        .ilike('username', username)
+        .eq('username', username)
         .maybeSingle();
 
       if (userError || !userData) {
@@ -102,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data: existingUser } = await supabase
         .from('users')
         .select('username')
-        .ilike('username', username)
+        .eq('username', username)
         .maybeSingle();
 
       if (existingUser) {

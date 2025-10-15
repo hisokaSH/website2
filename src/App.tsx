@@ -5,17 +5,13 @@ import { AuthModal } from './components/Auth/AuthModal';
 import { UserProfile } from './components/Auth/UserProfile';
 import { DiscordCallback } from './components/DiscordCallback';
 import LauncherDownload from './components/LauncherDownload';
-import LauncherUpload from './components/LauncherUpload';
 import { supabase } from './lib/supabase';
 
 function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [profileModalOpen, setProfileModalOpen] = useState(false);
   const [showDiscordCallback, setShowDiscordCallback] = useState(false);
-  const [currentPage, setCurrentPage] = useState('home');
   const { profile, signOut, refreshProfile } = useAuth();
-
-  const isAdmin = profile?.is_admin || false;
 
   useEffect(() => {
     const handleDiscordCallback = async () => {
@@ -81,51 +77,6 @@ function App() {
     return <DiscordCallback />;
   }
 
-  if (currentPage === 'admin') {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-[#0f1425] via-[#1a1f35] to-[#0f1425]">
-        <nav className="fixed top-0 w-full bg-[#0f1425]/80 backdrop-blur-md border-b border-[#1e2642]/50 z-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-16">
-              <div className="flex items-center space-x-3">
-                <img
-                  src="https://i.ibb.co/8n39QhcC/Adobe-Express-file.png"
-                  alt="MeowCraft Logo"
-                  className="w-16 h-16 object-contain"
-                />
-                <span className="text-xl font-bold text-white">MeowCraft Admin</span>
-              </div>
-              <div className="flex items-center space-x-4">
-                <button
-                  onClick={() => setCurrentPage('home')}
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  Back to Home
-                </button>
-                <button
-                  onClick={() => signOut()}
-                  className="bg-[#1e2642] hover:bg-[#252d4a] text-white px-6 py-2 rounded-lg font-semibold transition-all flex items-center space-x-2 border border-[#2d3656]"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Sign Out</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </nav>
-        <div className="pt-32 pb-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h1 className="text-4xl font-bold text-white mb-4">Admin Panel</h1>
-              <p className="text-gray-400">Manage launcher uploads and versions</p>
-            </div>
-            <LauncherUpload />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0f1425] via-[#1a1f35] to-[#0f1425]">
       {/* Navigation */}
@@ -141,16 +92,9 @@ function App() {
               <span className="text-xl font-bold text-white">MeowCraft</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
-              <button onClick={() => setCurrentPage('home')} className="text-gray-300 hover:text-white transition-colors">Home</button>
               <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
               <a href="#mods" className="text-gray-300 hover:text-white transition-colors">Mods</a>
               <a href="#join" className="text-gray-300 hover:text-white transition-colors">How to Join</a>
-              {isAdmin && (
-                <button onClick={() => setCurrentPage('admin')} className="text-gray-300 hover:text-white transition-colors flex items-center space-x-1">
-                  <Shield className="w-4 h-4" />
-                  <span>Admin</span>
-                </button>
-              )}
               {profile ? (
                 <div className="flex items-center space-x-4">
                   <button
