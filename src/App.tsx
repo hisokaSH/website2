@@ -281,11 +281,11 @@ function App() {
                 <div className="text-center sm:text-left">
                   <div className="text-gray-400 text-sm mb-2">Server Address</div>
                   <div className="text-2xl sm:text-3xl font-mono font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-                    meowcraft.omgcraft.fr
+                    meowcraft.net
                   </div>
                 </div>
                 <button
-                  onClick={() => copyToClipboard('meowcraft.omgcraft.fr')}
+                  onClick={() => copyToClipboard('meowcraft.net')}
                   className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center space-x-2 transform hover:scale-105"
                 >
                   <Copy className="w-5 h-5" />
@@ -297,11 +297,11 @@ function App() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="bg-[#0f1425]/50 rounded-xl p-6 border border-[#1e2642]">
                 <div className="text-gray-400 text-sm mb-2">Version</div>
-                <div className="text-2xl font-bold text-white">1.20.1</div>
+                <div className="text-2xl font-bold text-white">1.21.1</div>
               </div>
               <div className="bg-[#0f1425]/50 rounded-xl p-6 border border-[#1e2642]">
                 <div className="text-gray-400 text-sm mb-2">Modpack</div>
-                <div className="text-2xl font-bold text-white">Cobblemon 1.5</div>
+                <div className="text-2xl font-bold text-white">Meowcraft (Cobblemon 1.6) </div>
               </div>
               <div className="bg-[#0f1425]/50 rounded-xl p-6 border border-[#1e2642]">
                 <div className="text-gray-400 text-sm mb-2 flex items-center">
