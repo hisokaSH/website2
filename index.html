@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vulcan Solutions - Premium Software Tools</title>
-    <link rel="icon" type="image/x-icon" href="image_2025-10-18_170600039-removebg-preview.ico">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -14,61 +13,69 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
-            background-attachment: fixed;
+            background: #0a0e1a;
+            overflow-x: hidden;
         }
 
-        .vulcan-gradient {
-            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-        }
-
-        .vulcan-text-gradient {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #991b1b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .product-card {
-            transition: all 0.3s ease;
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(10px);
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
-        }
-
-        .badge {
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
-
-        .nav-link {
-            position: relative;
-            transition: color 0.3s;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
+        /* Animated Gradient Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
             left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #dc2626, #991b1b);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
             width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1f35 50%, #0f1428 100%);
         }
 
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float-particle linear infinite;
+        }
+
+        @keyframes float-particle {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Animated Gradient Orbs */
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float-orb 20s ease-in-out infinite;
+        }
+
+        @keyframes float-orb {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(100px, -100px) scale(1.2);
+            }
+            66% {
+                transform: translate(-100px, 100px) scale(0.8);
+            }
+        }
+
+        /* Pulsing Glow Animation */
         .pulse-glow {
             animation: pulse-glow 2s ease-in-out infinite;
         }
@@ -78,547 +85,577 @@
                 box-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
             }
             50% {
-                box-shadow: 0 0 40px rgba(220, 38, 38, 0.6);
+                box-shadow: 0 0 40px rgba(220, 38, 38, 0.8);
             }
         }
 
-        .featured-badge {
-            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+        /* Card Tilt Effect */
+        .tilt-card {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .tilt-card:hover {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg) scale(1.05);
+        }
+
+        /* Scroll Reveal Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animated Border */
+        .animated-border {
+            position: relative;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(153, 27, 27, 0.1));
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .animated-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(45deg, #dc2626, #991b1b, #dc2626);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: border-animation 3s linear infinite;
+            opacity: 0;
+        }
+
+        .animated-border:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes border-animation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Text Glow */
+        .text-glow {
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+        }
+
+        /* Interactive Button */
+        .interactive-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .interactive-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .interactive-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0e1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #dc2626, #991b1b);
+            border-radius: 5px;
+        }
+
+        /* Grid Lines Background */
+        .grid-bg {
+            background-image: 
+                linear-gradient(rgba(220, 38, 38, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(220, 38, 38, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        @keyframes grid-move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 50px 50px;
+            }
+        }
+
+        /* Logo Glow */
+        .logo-glow {
+            filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.6));
+            animation: logo-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(220, 38, 38, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(220, 38, 38, 0.9));
+            }
+        }
+
+        /* Floating Animation */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        /* Stats Counter Animation */
+        .stat-number {
+            display: inline-block;
         }
     </style>
 </head>
-<body class="text-white">
+<body class="text-white relative">
     
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-gray-900/80 backdrop-blur-xl border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <img src="image_2025-10-18_170600039-removebg-preview.png" alt="Vulcan Logo" class="w-12 h-12">
-                    <span class="text-2xl font-bold vulcan-text-gradient">
+    <!-- Animated Background -->
+    <div class="gradient-bg grid-bg"></div>
+
+    <!-- Floating Gradient Orbs -->
+    <div class="gradient-orb w-96 h-96 bg-red-600 top-1/4 left-1/4" style="animation-delay: 0s;"></div>
+    <div class="gradient-orb w-80 h-80 bg-orange-600 bottom-1/4 right-1/4" style="animation-delay: 5s;"></div>
+    <div class="gradient-orb w-72 h-72 bg-red-800 top-1/2 right-1/3" style="animation-delay: 10s;"></div>
+
+    <!-- Particles Container -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Content Wrapper -->
+    <div class="relative z-10">
+
+        <!-- Navigation -->
+        <nav class="fixed top-0 w-full bg-gray-900/80 backdrop-blur-xl border-b border-red-900/20 z-50 shadow-2xl">
+            <div class="max-w-7xl mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4 group cursor-pointer">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPuesrgAAAAAAAAAAAAAAAABm/vPWxX1r6+T3v/xfevV9evL+u+Pzl59+Ps38/Pvt/Pz3/Pz0/Px0/PwAAHja" alt="Vulcan Logo" class="w-12 h-12 logo-glow">
+                        <div>
+                            <span class="text-2xl font-bold bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent text-glow">
+                                Vulcan Solutions
+                            </span>
+                            <div class="flex items-center space-x-1 mt-0.5">
+                                <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span class="text-xs text-gray-400">Online</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center space-x-10">
+                        <a href="#home" class="text-gray-300 hover:text-white transition-all hover:scale-110 font-medium relative group">
+                            Home
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-400 to-red-600 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <a href="#products" class="text-gray-300 hover:text-white transition-all hover:scale-110 font-medium relative group">
+                            Products
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-400 to-red-600 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <a href="#features" class="text-gray-300 hover:text-white transition-all hover:scale-110 font-medium relative group">
+                            Features
+                            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-red-400 to-red-600 group-hover:w-full transition-all duration-300"></span>
+                        </a>
+                        <button class="interactive-btn relative px-8 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-xl font-bold transition-all transform hover:scale-110 shadow-lg shadow-red-600/30 pulse-glow">
+                            <span class="relative z-10">Get Started</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="pt-40 pb-28 px-6 relative overflow-hidden">
+            <div class="max-w-6xl mx-auto text-center relative z-10">
+                <!-- Floating Logo -->
+                <div class="mb-12 relative inline-block float">
+                    <div class="w-48 h-48 mx-auto relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-red-600 via-red-500 to-red-700 rounded-full blur-3xl opacity-50 animate-pulse"></div>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPuesrgAAAAAAAAAAAAAAAABm/vPWxX1r6+T3v/xfevV9evL+u+Pzl59+Ps38/Pvt/Pz3/Pz0/Px0/PwAAHja" alt="Vulcan Logo" class="w-full h-full object-contain relative z-10 logo-glow">
+                    </div>
+                    <div class="absolute -top-6 -right-6 bg-gradient-to-r from-red-500 to-red-700 rounded-full p-4 animate-bounce shadow-lg shadow-red-600/50">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Main Heading -->
+                <h1 class="scroll-reveal text-6xl md:text-7xl lg:text-8xl font-black text-white mb-8 leading-tight tracking-tight">
+                    Power Your Workflow<br/>
+                    <span class="relative inline-block">
+                        <span class="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent text-glow">
+                            With Vulcan
+                        </span>
+                        <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-red-400 via-red-500 to-red-600 rounded-full"></div>
+                    </span>
+                </h1>
+
+                <!-- Subtitle -->
+                <p class="scroll-reveal text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light" style="animation-delay: 0.2s">
+                    Professional software tools engineered for <span class="text-red-400 font-semibold">performance and reliability</span>. 
+                    Trusted by thousands of users worldwide.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="scroll-reveal flex flex-col sm:flex-row items-center justify-center gap-6 mb-16" style="animation-delay: 0.4s">
+                    <a href="#products" class="interactive-btn relative group overflow-hidden bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all transform hover:scale-110 shadow-2xl shadow-red-600/40 pulse-glow flex items-center space-x-3">
+                        <svg class="w-6 h-6 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        <span class="relative z-10">Download Now</span>
+                    </a>
+                    
+                    <a href="#features" class="interactive-btn group bg-white/5 hover:bg-white/10 backdrop-blur-xl text-white px-10 py-5 rounded-2xl font-bold text-lg transition-all border border-white/10 hover:border-red-600/50 flex items-center space-x-3 transform hover:scale-105 shadow-xl">
+                        <svg class="w-6 h-6 text-red-400 group-hover:text-red-300 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span>Learn More</span>
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="scroll-reveal grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto" style="animation-delay: 0.6s">
+                    <div class="tilt-card animated-border p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl">
+                        <div class="text-4xl font-black text-red-400 mb-2 stat-number" data-target="10000">0</div>
+                        <div class="text-gray-400">Active Users</div>
+                    </div>
+                    <div class="tilt-card animated-border p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl">
+                        <div class="text-4xl font-black text-red-400 mb-2">99.9%</div>
+                        <div class="text-gray-400">Uptime</div>
+                    </div>
+                    <div class="tilt-card animated-border p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl">
+                        <div class="text-4xl font-black text-red-400 mb-2">24/7</div>
+                        <div class="text-gray-400">Support</div>
+                    </div>
+                    <div class="tilt-card animated-border p-6 bg-gray-800/40 backdrop-blur-sm rounded-2xl">
+                        <div class="text-4xl font-black text-red-400 mb-2">4.9★</div>
+                        <div class="text-gray-400">Rating</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="products" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="scroll-reveal text-5xl font-black text-white mb-4 text-glow">Our Products</h2>
+                    <p class="scroll-reveal text-xl text-gray-400 max-w-2xl mx-auto">
+                        Professional tools built for power users
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Featured Product Card -->
+                    <div class="scroll-reveal tilt-card animated-border p-8 rounded-2xl relative overflow-hidden bg-gray-800/40 backdrop-blur-sm col-span-full lg:col-span-1">
+                        <div class="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-6 py-2 text-sm font-bold rounded-bl-2xl flex items-center space-x-2 shadow-lg">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span>FEATURED</span>
+                        </div>
+                        <div class="mt-8 mb-6">
+                            <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-4xl shadow-lg shadow-red-600/50 pulse-glow">
+                                🔥
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-1 rounded-full text-xs font-bold inline-block mb-4">
+                            MOST POPULAR
+                        </div>
+                        <h3 class="text-3xl font-black mb-4 bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">Vulcan 2PC Bypass</h3>
+                        <p class="text-gray-400 mb-6 leading-relaxed">
+                            Advanced 2PC streaming solution with hardware-level optimization and zero latency. Professional-grade bypass technology.
+                        </p>
+                        <div class="flex items-baseline justify-between mb-6">
+                            <div>
+                                <span class="text-5xl font-black text-white">$79</span>
+                                <span class="text-gray-400 text-lg">/month</span>
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-yellow-400">★★★★★</span>
+                                <span class="text-gray-400 text-sm ml-2">(3.2k)</span>
+                            </div>
+                        </div>
+                        <button class="interactive-btn w-full py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-xl font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-red-600/40 pulse-glow">
+                            <span class="relative z-10">Purchase Now</span>
+                        </button>
+                        <div class="mt-6 pt-6 border-t border-red-900/30">
+                            <div class="space-y-3 text-sm text-gray-300">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Zero latency streaming</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Hardware optimization</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Advanced bypass technology</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Lifetime updates</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 text-green-400 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <span>Priority support</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Product Cards (shortened for brevity) -->
+                    <div class="scroll-reveal tilt-card animated-border p-8 rounded-2xl bg-gray-800/40 backdrop-blur-sm" style="animation-delay: 0.1s">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-2xl mb-6 shadow-lg">
+                            🛡️
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Vulcan Shield</h3>
+                        <p class="text-gray-400 mb-6">
+                            Comprehensive security suite with real-time protection.
+                        </p>
+                        <div class="flex items-baseline justify-between mb-6">
+                            <div>
+                                <span class="text-3xl font-black text-white">$49</span>
+                                <span class="text-gray-400">/mo</span>
+                            </div>
+                        </div>
+                        <button class="interactive-btn w-full py-3 bg-red-600/20 hover:bg-red-600/30 border border-red-600/50 rounded-xl font-semibold transition">
+                            <span class="relative z-10">Learn More</span>
+                        </button>
+                    </div>
+
+                    <div class="scroll-reveal tilt-card animated-border p-8 rounded-2xl bg-gray-800/40 backdrop-blur-sm" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-2xl mb-6 shadow-lg">
+                            ⚡
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Vulcan Optimizer</h3>
+                        <p class="text-gray-400 mb-6">
+                            System optimization tool that boosts performance.
+                        </p>
+                        <div class="flex items-baseline justify-between mb-6">
+                            <div>
+                                <span class="text-3xl font-black text-white">$39</span>
+                                <span class="text-gray-400">/mo</span>
+                            </div>
+                        </div>
+                        <button class="interactive-btn w-full py-3 bg-red-600/20 hover:bg-red-600/30 border border-red-600/50 rounded-xl font-semibold transition">
+                            <span class="relative z-10">Learn More</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="scroll-reveal text-5xl font-black text-white mb-4 text-glow">Why Choose Vulcan</h2>
+                    <p class="scroll-reveal text-xl text-gray-400 max-w-2xl mx-auto">
+                        Built with performance, security, and reliability in mind
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="scroll-reveal tilt-card animated-border p-8 backdrop-blur-sm rounded-2xl bg-gray-800/40">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-3xl mb-6 shadow-lg">
+                            ⚡
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Lightning Fast</h3>
+                        <p class="text-gray-400">Optimized for maximum performance with minimal system overhead.</p>
+                    </div>
+
+                    <div class="scroll-reveal tilt-card animated-border p-8 backdrop-blur-sm rounded-2xl bg-gray-800/40" style="animation-delay: 0.1s">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-3xl mb-6 shadow-lg">
+                            🔒
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Secure & Private</h3>
+                        <p class="text-gray-400">Industry-leading security with encrypted connections.</p>
+                    </div>
+
+                    <div class="scroll-reveal tilt-card animated-border p-8 backdrop-blur-sm rounded-2xl bg-gray-800/40" style="animation-delay: 0.2s">
+                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-3xl mb-6 shadow-lg">
+                            🎯
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-white">Easy to Use</h3>
+                        <p class="text-gray-400">Intuitive interface with one-click setup.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-16 px-6 border-t border-red-900/20">
+            <div class="max-w-7xl mx-auto text-center">
+                <div class="flex items-center justify-center space-x-3 mb-4">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAACXBIWXMAAAsTAAALEwEAmpwYAAAKT2lDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjanVNnVFPpFj333vRCS4iAlEtvUhUIIFJCi4AUkSYqIQkQSoghodkVUcERRUUEG8igiAOOjoCMFVEsDIoK2AfkIaKOg6OIisr74Xuja9a89+bN/rXXPuesrgAAAAAAAAAAAAAAAABm/vPWxX1r6+T3v/xfevV9evL+u+Pzl59+Ps38/Pvt/Pz3/Pz0/Px0/PwAAHja" alt="Vulcan Logo" class="w-10 h-10 logo-glow">
+                    <span class="text-xl font-bold bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
                         Vulcan Solutions
                     </span>
                 </div>
+                <p class="text-gray-500 text-sm">
+                    &copy; 2024 Vulcan Solutions. All rights reserved.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Particle System
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
                 
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
-                    <a href="#products" class="nav-link text-gray-300 hover:text-white">Products</a>
-                    <a href="#features" class="nav-link text-gray-300 hover:text-white">Features</a>
-                    <a href="#support" class="nav-link text-gray-300 hover:text-white">Support</a>
-                    <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
-                </div>
+                const size = Math.random() * 4 + 2;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.background = `rgba(220, 38, 38, ${Math.random() * 0.5 + 0.2})`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                container.appendChild(particle);
+            }
+        }
 
-                <div class="flex items-center space-x-4">
-                    <button class="hidden md:block px-6 py-2 text-gray-300 hover:text-white transition">
-                        Sign In
-                    </button>
-                    <button class="px-6 py-2 vulcan-gradient hover:opacity-90 rounded-lg font-semibold transition transform hover:scale-105">
-                        Get Started
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="pt-32 pb-20 px-6">
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="inline-block mb-6 px-4 py-2 bg-red-500/10 border border-red-500/30 rounded-full">
-                <span class="text-red-400 text-sm font-semibold">🔥 Premium Software Solutions</span>
-            </div>
+        // Scroll Reveal Animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.scroll-reveal');
             
-            <h1 class="text-6xl md:text-7xl font-black mb-6 leading-tight">
-                Power Your Workflow<br/>
-                <span class="vulcan-text-gradient">
-                    With Vulcan
-                </span>
-            </h1>
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Counter Animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
             
-            <p class="text-xl text-gray-400 mb-12 max-w-3xl mx-auto">
-                Professional software tools engineered for performance and reliability. 
-                Trusted by thousands of users worldwide for secure and efficient solutions.
-            </p>
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                if (!target) return;
+                
+                const duration = 2000;
+                const increment = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString() + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString() + '+';
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-                <a href="#products" class="px-8 py-4 vulcan-gradient hover:opacity-90 rounded-xl font-bold text-lg transition transform hover:scale-105 pulse-glow">
-                    Browse Products
-                </a>
-                <button class="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl font-bold text-lg transition">
-                    View Documentation
-                </button>
-            </div>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            revealOnScroll();
+            
+            // Trigger counter animation when stats section is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                observer.observe(stat);
+            });
+        });
 
-            <!-- Stats -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div class="p-6 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl">
-                    <div class="text-4xl font-black text-red-400 mb-2">10K+</div>
-                    <div class="text-gray-400">Active Users</div>
-                </div>
-                <div class="p-6 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl">
-                    <div class="text-4xl font-black text-red-400 mb-2">99.9%</div>
-                    <div class="text-gray-400">Uptime</div>
-                </div>
-                <div class="p-6 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl">
-                    <div class="text-4xl font-black text-red-400 mb-2">24/7</div>
-                    <div class="text-gray-400">Support</div>
-                </div>
-                <div class="p-6 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl">
-                    <div class="text-4xl font-black text-red-400 mb-2">4.8★</div>
-                    <div class="text-gray-400">Rating</div>
-                </div>
-            </div>
-        </div>
-    </section>
+        window.addEventListener('scroll', revealOnScroll);
 
-    <!-- Products Section -->
-    <section id="products" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl font-black mb-4">Our Products</h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    Professional tools built for power users
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- FEATURED: Vulcan 2PC Bypass -->
-                <div class="product-card p-8 border-2 border-red-600 rounded-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 featured-badge text-white px-4 py-1 text-xs font-bold rounded-bl-lg">
-                        ⭐ FEATURED
-                    </div>
-                    <div class="flex items-start justify-between mb-6 mt-4">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl shadow-lg shadow-red-600/50">
-                            🔥
-                        </div>
-                        <span class="badge">Most Popular</span>
-                    </div>
-                    <h3 class="text-3xl font-black mb-3 vulcan-text-gradient">Vulcan 2PC Bypass</h3>
-                    <p class="text-gray-400 mb-6">
-                        Advanced 2PC streaming solution with hardware-level optimization and zero latency. Professional-grade bypass technology.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-4xl font-black text-white">$79</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(3.2k)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 vulcan-gradient hover:opacity-90 rounded-lg font-bold text-lg transition transform hover:scale-105 shadow-lg shadow-red-600/30">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Zero latency streaming
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Hardware optimization
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Advanced bypass tech
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Lifetime updates
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Priority support
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Card 2 -->
-                <div class="product-card p-8 border border-gray-800 rounded-2xl">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center text-2xl">
-                            🛡️
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Vulcan Shield</h3>
-                    <p class="text-gray-400 mb-6">
-                        Comprehensive security suite with real-time protection and advanced threat detection for your system.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-3xl font-black text-white">$49</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(1.8k)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 rounded-lg font-semibold transition transform hover:scale-105">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Real-time protection
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Threat detection
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Automatic updates
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Card 3 -->
-                <div class="product-card p-8 border border-gray-800 rounded-2xl">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-2xl">
-                            ⚡
-                        </div>
-                        <span class="badge" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">New</span>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Vulcan Optimizer</h3>
-                    <p class="text-gray-400 mb-6">
-                        System optimization tool that boosts performance and reduces latency for demanding applications.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-3xl font-black text-white">$39</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(1.2k)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 rounded-lg font-semibold transition transform hover:scale-105">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Performance boost
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Latency reduction
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                One-click setup
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Card 4 -->
-                <div class="product-card p-8 border border-gray-800 rounded-2xl">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-2xl">
-                            🎮
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Vulcan Stream Pro</h3>
-                    <p class="text-gray-400 mb-6">
-                        Professional streaming toolkit with scene management, overlays, and advanced encoding options.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-3xl font-black text-white">$59</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(956)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg font-semibold transition transform hover:scale-105">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Scene management
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Custom overlays
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Multi-platform
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Card 5 -->
-                <div class="product-card p-8 border border-gray-800 rounded-2xl">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-2xl">
-                            🔧
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Vulcan Toolkit</h3>
-                    <p class="text-gray-400 mb-6">
-                        Complete developer toolkit with debugging tools, performance monitors, and system utilities.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-3xl font-black text-white">$44</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(734)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 rounded-lg font-semibold transition transform hover:scale-105">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Debug tools
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                System monitors
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Utilities suite
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Product Card 6 -->
-                <div class="product-card p-8 border border-gray-800 rounded-2xl">
-                    <div class="flex items-start justify-between mb-6">
-                        <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-2xl">
-                            📊
-                        </div>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Vulcan Analytics</h3>
-                    <p class="text-gray-400 mb-6">
-                        Advanced analytics platform with real-time metrics, custom dashboards, and detailed reports.
-                    </p>
-                    <div class="flex items-center justify-between mb-6">
-                        <div>
-                            <span class="text-3xl font-black text-white">$54</span>
-                            <span class="text-gray-400">/month</span>
-                        </div>
-                        <div class="flex items-center space-x-1">
-                            <span class="text-yellow-400">★★★★★</span>
-                            <span class="text-gray-400 text-sm ml-2">(621)</span>
-                        </div>
-                    </div>
-                    <button class="w-full py-3 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-lg font-semibold transition transform hover:scale-105">
-                        Purchase Now
-                    </button>
-                    <div class="mt-6 pt-6 border-t border-gray-800">
-                        <div class="space-y-2 text-sm text-gray-400">
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Real-time metrics
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Custom dashboards
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-5 h-5 text-green-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                                </svg>
-                                Detailed reports
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-20 px-6 bg-gradient-to-b from-transparent to-gray-900/30">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl font-black mb-4">Why Choose Vulcan</h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    Built with performance, security, and reliability in mind
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        ⚡
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Lightning Fast</h3>
-                    <p class="text-gray-400">Optimized for maximum performance with minimal system overhead.</p>
-                </div>
-
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        🔒
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Secure & Private</h3>
-                    <p class="text-gray-400">Industry-leading security with encrypted connections and privacy protection.</p>
-                </div>
-
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        🎯
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Easy to Use</h3>
-                    <p class="text-gray-400">Intuitive interface with one-click setup and automatic configuration.</p>
-                </div>
-
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        🔄
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Regular Updates</h3>
-                    <p class="text-gray-400">Continuous improvements and new features delivered automatically.</p>
-                </div>
-
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        🌐
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Global Support</h3>
-                    <p class="text-gray-400">24/7 customer support available worldwide in multiple languages.</p>
-                </div>
-
-                <div class="p-8 bg-gray-800/40 backdrop-blur-sm border border-gray-700 rounded-2xl hover:border-red-600/50 transition">
-                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center text-2xl mb-6">
-                        💎
-                    </div>
-                    <h3 class="text-2xl font-bold mb-3">Premium Quality</h3>
-                    <p class="text-gray-400">Professional-grade tools built to enterprise standards.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <div class="p-12 bg-gradient-to-r from-red-600/20 via-red-700/20 to-red-800/20 border border-red-600/30 rounded-3xl backdrop-blur-sm">
-                <h2 class="text-5xl font-black mb-6">Ready to Get Started?</h2>
-                <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                    Join thousands of satisfied users. Download Vulcan 2PC Bypass and experience the difference.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <button class="px-10 py-4 vulcan-gradient hover:opacity-90 rounded-xl font-bold text-lg transition transform hover:scale-105 pulse-glow">
-                        Get Vulcan 2PC Bypass
-                    </button>
-                    <button class="px-10 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl font-bold text-lg transition">
-                        View All Products
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-16 px-6 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-12 mb-12">
-                <div>
-                    <div class="flex items-center space-x-3 mb-6">
-                        <img src="image_2025-10-18_170600039-removebg-preview.png" alt="Vulcan Logo" class="w-10 h-10">
-                        <span class="text-xl font-bold vulcan-text-gradient">Vulcan Solutions</span>
-                    </div>
-                    <p class="text-gray-400 text-sm">Professional software solutions engineered for performance.</p>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Products</h4>
-                    <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Vulcan 2PC Bypass</a></li>
-                        <li><a href="#" class="hover:text-white transition">Vulcan Shield</a></li>
-                        <li><a href="#" class="hover:text-white transition">Vulcan Optimizer</a></li>
-                        <li><a href="#" class="hover:text-white transition">View All</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Support</h4>
-                    <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
-                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
-                        <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
-                        <li><a href="#" class="hover:text-white transition">Discord</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold mb-4">Company</h4>
-                    <ul class="space-y-3 text-gray-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">About</a></li>
-                        <li><a href="#" class="hover:text-white transition">Terms</a></li>
-                        <li><a href="#" class="hover:text-white transition">Privacy</a></li>
-                        <li><a href="#" class="hover:text-white transition">License</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
-                <p>&copy; 2024 Vulcan Solutions. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
