@@ -10,465 +10,520 @@
     <style>
         * { font-family: 'Inter', system-ui, sans-serif; }
         body { background: #0a0f1a; }
-        
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #0a0f1a; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #06b6d4, #3b82f6); border-radius: 5px; }
-        
         html { scroll-behavior: smooth; }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-        }
-        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
         .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-float-delayed { animation: float 6s ease-in-out infinite 2s; }
-        
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .scroll-animate.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(6, 182, 212, 0.15);
-        }
+        .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .scroll-animate.active { opacity: 1; transform: translateY(0); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .animate-spin { animation: spin 1s linear infinite; }
     </style>
 </head>
 <body class="text-white overflow-x-hidden">
-
-    <!-- Animated Background -->
-    <div class="fixed inset-0 pointer-events-none">
-        <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[150px] animate-pulse"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[150px] animate-pulse" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] animate-pulse" style="animation-delay: 0.5s;"></div>
-        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex items-center justify-between">
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="relative">
-                        <div class="absolute inset-0 bg-cyan-400/30 rounded-xl blur-xl group-hover:bg-cyan-400/50 transition-all"></div>
-                        <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-10 h-10 relative z-10">
-                    </div>
-                    <div>
-                        <span class="text-xl font-bold tracking-tight">VULCAN</span>
-                        <span class="text-cyan-400 font-light ml-1">Solutions</span>
-                    </div>
-                </a>
-
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="#products" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Products</a>
-                    <a href="#features" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Features</a>
-                    <a href="#faq" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">FAQ</a>
-                </div>
-
-                <div class="hidden md:flex items-center gap-4">
-                    <button class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
-                    <button class="relative group px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-sm overflow-hidden hover:from-cyan-400 hover:to-blue-500 transition-all">
-                        Get Started
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center pt-20">
-        <div class="max-w-7xl mx-auto px-6 py-20 w-full">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <!-- Left Content -->
-                <div class="scroll-animate">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm mb-6">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <span>Trusted by 10,000+ players worldwide</span>
-                    </div>
-                    
-                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
-                        Level Up Your
-                        <span class="block mt-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
-                            Gameplay
-                        </span>
-                    </h1>
-                    
-                    <p class="text-xl text-gray-400 mb-8 max-w-lg leading-relaxed">
-                        Premium gaming tools and utilities to enhance your experience. 
-                        Your rank isn't luck — it's strategy.
-                    </p>
-
-                    <div class="flex flex-col sm:flex-row gap-4 mb-12">
-                        <a href="#products" class="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-xl font-bold text-lg transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105">
-                            Browse Products
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                        </a>
-                        <button class="flex items-center justify-center gap-2 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-xl font-semibold text-lg transition-all">
-                            <svg class="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-                            Watch Demo
-                        </button>
-                    </div>
-
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6">
-                        <div>
-                            <div class="text-3xl font-black text-white">10K+</div>
-                            <div class="text-sm text-gray-500">Active Users</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-black text-white">99.9%</div>
-                            <div class="text-sm text-gray-500">Uptime</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl font-black text-white">4.9★</div>
-                            <div class="text-sm text-gray-500">Avg Rating</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Content - Floating Cards -->
-                <div class="relative hidden lg:block">
-                    <div class="relative w-full h-[500px]">
-                        <!-- Main card -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/10 rounded-2xl p-6 shadow-2xl z-20">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
-                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Performance Boost</div>
-                                    <div class="text-sm text-gray-400">Active now</div>
-                                </div>
-                            </div>
-                            <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">
-                                +45% FPS
-                            </div>
-                            <div class="flex items-center gap-2 text-green-400 text-sm">
-                                <svg class="w-4 h-4 rotate-[-45deg]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                                Optimized settings applied
-                            </div>
-                        </div>
-
-                        <!-- Floating elements -->
-                        <div class="absolute top-10 right-10 bg-[#141b2d] border border-white/10 rounded-xl p-4 animate-float">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                                <span class="text-sm">Secure & Undetected</span>
-                            </div>
-                        </div>
-
-                        <div class="absolute bottom-20 left-0 bg-[#141b2d] border border-white/10 rounded-xl p-4 animate-float-delayed">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                <span class="text-sm">Auto-updates enabled</span>
-                            </div>
-                        </div>
-
-                        <div class="absolute top-32 left-10 bg-[#141b2d] border border-white/10 rounded-xl p-4 animate-float">
-                            <div class="flex items-center gap-1">
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 scroll-animate">
-                <h2 class="text-4xl md:text-5xl font-black mb-4">
-                    Our <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Products</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    Premium tools for the most competitive games
-                </p>
-            </div>
-
-            <!-- Free Products -->
-            <div class="mb-16">
-                <div class="flex items-center gap-3 mb-8 scroll-animate">
-                    <div class="px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-lg">
-                        <span class="text-green-400 font-bold text-sm">FREE</span>
-                    </div>
-                    <h3 class="text-2xl font-bold">Free Products</h3>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="free-games-grid"></div>
-            </div>
-
-            <!-- Paid Products -->
-            <div>
-                <div class="flex items-center gap-3 mb-8 scroll-animate">
-                    <div class="px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-lg">
-                        <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-bold text-sm">PREMIUM</span>
-                    </div>
-                    <h3 class="text-2xl font-bold">Premium Products</h3>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="paid-games-grid"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 scroll-animate">
-                <h2 class="text-4xl md:text-5xl font-black mb-4">
-                    Why Choose <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Vulcan</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    Built for performance, designed for gamers
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover">
-                    <div class="w-14 h-14 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
-                    <p class="text-gray-400 leading-relaxed">Optimized for performance with minimal system impact. Your FPS stays high while our tools run.</p>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover" style="transition-delay: 0.1s;">
-                    <div class="w-14 h-14 rounded-xl bg-green-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Secure & Private</h3>
-                    <p class="text-gray-400 leading-relaxed">Your data stays yours. We use industry-standard encryption and never share your information.</p>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover" style="transition-delay: 0.2s;">
-                    <div class="w-14 h-14 rounded-xl bg-purple-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Auto Updates</h3>
-                    <p class="text-gray-400 leading-relaxed">Stay current with automatic updates. New features and compatibility patches delivered seamlessly.</p>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover" style="transition-delay: 0.3s;">
-                    <div class="w-14 h-14 rounded-xl bg-yellow-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Easy to Use</h3>
-                    <p class="text-gray-400 leading-relaxed">Clean interface with intuitive controls. Get started in minutes, not hours.</p>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover" style="transition-delay: 0.4s;">
-                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">Active Community</h3>
-                    <p class="text-gray-400 leading-relaxed">Join our Discord community of gamers. Share tips, get support, and connect with others.</p>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300 card-hover" style="transition-delay: 0.5s;">
-                    <div class="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-                    </div>
-                    <h3 class="text-xl font-bold mb-3">24/7 Support</h3>
-                    <p class="text-gray-400 leading-relaxed">Questions? Our support team is always available to help you get the most from our tools.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16 scroll-animate">
-                <h2 class="text-4xl md:text-5xl font-black mb-4">
-                    Players <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Love Us</span>
-                </h2>
-                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
-                    See what our community has to say
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed mb-6">"Super easy to set up and works flawlessly. The auto-update feature means I never have to worry about compatibility issues."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold">AC</div>
-                        <div>
-                            <div class="font-semibold">Alex Chen</div>
-                            <div class="text-sm text-gray-400">Valorant Player</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8" style="transition-delay: 0.1s;">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed mb-6">"Best investment I've made. The performance is incredible and the support team is always quick to help."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold">SM</div>
-                        <div>
-                            <div class="font-semibold">Sarah Miller</div>
-                            <div class="text-sm text-gray-400">League of Legends Player</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8" style="transition-delay: 0.2s;">
-                    <div class="flex items-center gap-1 mb-4">
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    </div>
-                    <p class="text-gray-300 leading-relaxed mb-6">"Been using Vulcan for months. Reliable, fast, and the community is super helpful. Highly recommend!"</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center font-bold">JT</div>
-                        <div>
-                            <div class="font-semibold">Jake Thompson</div>
-                            <div class="text-sm text-gray-400">Apex Legends Player</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-24 relative">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="text-center mb-16 scroll-animate">
-                <h2 class="text-4xl md:text-5xl font-black mb-4">
-                    Frequently Asked <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Questions</span>
-                </h2>
-            </div>
-            <div class="space-y-4" id="faq-container"></div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-24 relative">
-        <div class="max-w-4xl mx-auto px-6">
-            <div class="scroll-animate relative bg-gradient-to-r from-cyan-500/10 to-blue-600/10 border border-cyan-500/20 rounded-3xl p-12 text-center overflow-hidden">
-                <div class="relative z-10">
-                    <h2 class="text-4xl md:text-5xl font-black mb-4">Ready to Get Started?</h2>
-                    <p class="text-xl text-gray-400 mb-8 max-w-xl mx-auto">
-                        Join thousands of players who've already enhanced their gaming experience with Vulcan.
-                    </p>
-                    <button class="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-xl font-bold text-lg transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105">
-                        Browse Products
-                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div class="flex items-center gap-3">
-                    <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-8 h-8">
-                    <span class="font-bold">VULCAN Solutions</span>
-                </div>
-                <div class="flex items-center gap-8 text-sm text-gray-400">
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Contact</a>
-                </div>
-                <div class="text-sm text-gray-500">© 2024 Vulcan Solutions. All rights reserved.</div>
-            </div>
-        </div>
-    </footer>
+    <div id="app"></div>
 
     <script>
-        // Games data with pricing category
-        const games = [
-            // Free Products
-            { id: 'roblox', name: 'Roblox', image: 'https://i.ibb.co/jvKfw2MK/image-2025-11-04-153359126-removebg-preview.png', status: 'available', category: 'Platform', pricing: 'free' },
-            { id: 'vulcan-checker', name: 'Vulcan Checker', image: 'https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png', status: 'available', category: 'Utility', pricing: 'free' },
+        // Products Data
+        const products = {
+            'vulcan-checker': {
+                id: 'vulcan-checker',
+                name: 'Vulcan Checker',
+                image: 'https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png',
+                banner: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200',
+                category: 'Utility',
+                pricing: 'free',
+                status: 'available',
+                description: 'A powerful utility tool to check and verify your game accounts, settings, and system compatibility. Essential for ensuring optimal performance before launching your games.',
+                features: ['Account status verification', 'System compatibility check', 'Game file integrity scanner', 'Performance optimization suggestions', 'Auto-detect installed games', 'Export detailed reports'],
+                version: '2.1.0',
+                lastUpdated: 'November 28, 2024',
+                downloads: 15420,
+                requirements: ['Windows 10/11 (64-bit)', '4GB RAM minimum', '100MB free disk space', 'Internet connection required']
+            },
+            'roblox': {
+                id: 'roblox',
+                name: 'Roblox Tools',
+                image: 'https://i.ibb.co/jvKfw2MK/image-2025-11-04-153359126-removebg-preview.png',
+                banner: 'https://images.unsplash.com/photo-1614294148960-9aa740632a87?w=1200',
+                category: 'Platform',
+                pricing: 'free',
+                status: 'available',
+                description: 'Free utility suite for Roblox players. Includes FPS unlocker, performance optimizer, and quality-of-life enhancements to improve your Roblox experience.',
+                features: ['FPS Unlocker (unlock 60+ FPS)', 'Graphics quality presets', 'Quick server switcher', 'Game favorites manager', 'Performance monitoring overlay', 'One-click optimization'],
+                version: '3.4.2',
+                lastUpdated: 'November 30, 2024',
+                downloads: 89750,
+                requirements: ['Windows 10/11 (64-bit)', 'Roblox installed', '2GB RAM minimum', '50MB free disk space']
+            },
+            'league': {
+                id: 'league', name: 'League of Legends', image: 'https://i.ibb.co/1tyyhy5K/image-2025-11-04-150655644.png',
+                banner: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200', category: 'MOBA', pricing: 'paid', status: 'available',
+                description: 'Advanced toolkit for League of Legends players. Includes performance optimization, overlay tools, and game enhancers.',
+                features: ['Performance optimizer', 'Custom overlay with timers', 'Minimap enhancements', 'Auto-accept queue', 'Champion select tools', 'Post-game analytics'],
+                version: '4.2.1', lastUpdated: 'November 29, 2024', price: 14.99,
+                requirements: ['Windows 10/11 (64-bit)', 'League of Legends installed', '8GB RAM recommended', '200MB free disk space']
+            },
+            'valorant': {
+                id: 'valorant', name: 'Valorant', image: 'https://i.ibb.co/27wmTgqm/V-Lockup-Horizontal-Pos-Red.png',
+                banner: 'https://images.unsplash.com/photo-1542751110-97427bbecf20?w=1200', category: 'FPS', pricing: 'paid', status: 'available',
+                description: 'Premium Valorant enhancement suite. Optimize your gameplay with crosshair customization, performance tweaks, and competitive tools.',
+                features: ['Advanced crosshair editor', 'FPS optimizer', 'Network latency monitor', 'Custom keybind profiles', 'Audio enhancement presets', 'Match history tracker'],
+                version: '2.8.0', lastUpdated: 'November 27, 2024', price: 19.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Valorant installed', '8GB RAM recommended', '150MB free disk space']
+            },
+            'apex': {
+                id: 'apex', name: 'Apex Legends', image: 'https://i.ibb.co/ccDKJLkD/image-2025-11-04-151524012.png',
+                banner: 'https://images.unsplash.com/photo-1552820728-8b83bb6b2b0a?w=1200', category: 'Battle Royale', pricing: 'paid', status: 'available',
+                description: 'Apex Legends performance suite. Maximize your FPS, optimize settings, and get competitive advantages.',
+                features: ['FPS boost configuration', 'Autoexec generator', 'Video settings optimizer', 'Controller/MnK presets', 'Server selector', 'Stats tracker overlay'],
+                version: '3.1.5', lastUpdated: 'November 25, 2024', price: 17.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Apex Legends installed', '8GB RAM recommended', '180MB free disk space']
+            },
+            'deltaforce': {
+                id: 'deltaforce', name: 'Delta Force', image: 'https://i.ibb.co/d0xw7SDj/image-2025-11-04-152122898.png',
+                banner: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1200', category: 'FPS', pricing: 'paid', status: 'available',
+                description: 'Delta Force optimization toolkit. Enhance your tactical shooter experience with performance tweaks.',
+                features: ['Graphics optimizer', 'Input lag reducer', 'Custom FOV settings', 'Network optimizer', 'Quick settings profiles', 'Screenshot manager'],
+                version: '1.2.0', lastUpdated: 'November 20, 2024', price: 14.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Delta Force installed', '16GB RAM recommended', '200MB free disk space']
+            },
+            'rust': {
+                id: 'rust', name: 'Rust', image: 'https://i.ibb.co/n8KvkP1b/image-2025-11-04-152356540.png',
+                banner: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200', category: 'Survival', pricing: 'paid', status: 'available',
+                description: 'Rust survival toolkit. Optimize performance and get ahead with our comprehensive tools.',
+                features: ['FPS optimization suite', 'Graphics presets', 'Server browser enhancer', 'Base calculator tools', 'Raid timer utilities', 'Map overlay features'],
+                version: '2.5.3', lastUpdated: 'November 22, 2024', price: 19.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Rust installed', '16GB RAM recommended', '250MB free disk space']
+            },
+            'ark-evolved': {
+                id: 'ark-evolved', name: 'ARK: Survival Evolved', image: 'https://i.ibb.co/Mk14x0yv/image-2025-11-04-152526734.png',
+                banner: 'https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=1200', category: 'Survival', pricing: 'paid', status: 'available',
+                description: 'ARK Survival Evolved enhancement tools. Boost performance and optimize your taming experience.',
+                features: ['Massive FPS improvements', 'Memory optimizer', 'Taming calculator integration', 'Server manager', 'Mod compatibility checker', 'Backup manager'],
+                version: '4.0.1', lastUpdated: 'November 18, 2024', price: 14.99,
+                requirements: ['Windows 10/11 (64-bit)', 'ARK: Survival Evolved installed', '16GB RAM recommended', '300MB free disk space']
+            },
+            'ark-ascended': {
+                id: 'ark-ascended', name: 'ARK: Survival Ascended', image: 'https://i.ibb.co/S7RkKStm/image-2025-11-04-152603289.png',
+                banner: 'https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?w=1200', category: 'Survival', pricing: 'paid', status: 'available',
+                description: 'ARK Survival Ascended toolkit for the UE5 version. Optimize the demanding new graphics.',
+                features: ['UE5 optimization presets', 'DLSS/FSR configurator', 'Memory management', 'Stutter fix utilities', 'Custom launch options', 'Performance monitoring'],
+                version: '1.8.0', lastUpdated: 'November 24, 2024', price: 17.99,
+                requirements: ['Windows 10/11 (64-bit)', 'ARK: Survival Ascended installed', '32GB RAM recommended', '350MB free disk space']
+            },
+            'arcraiders': {
+                id: 'arcraiders', name: 'ARC Raiders', image: 'https://i.ibb.co/x4QrDc0/image-2025-11-04-151357982.png',
+                banner: 'https://images.unsplash.com/photo-1534423861386-85a16f5d13fd?w=1200', category: 'PvPvE', pricing: 'paid', status: 'coming-soon',
+                description: 'Coming soon! ARC Raiders toolkit will be available when the game launches.',
+                features: ['Performance optimizer', 'Graphics presets', 'Network tools', 'Overlay features', 'And more coming...'],
+                version: 'TBA', lastUpdated: 'Coming Soon', price: 14.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Requirements TBA']
+            },
+            'battlefield6': {
+                id: 'battlefield6', name: 'Battlefield 6', image: 'https://i.ibb.co/pv1BkXpF/image-2025-11-04-144746248.png',
+                banner: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200', category: 'FPS', pricing: 'paid', status: 'coming-soon',
+                description: 'Coming soon! Battlefield 6 toolkit will be available at launch.',
+                features: ['Performance optimizer', 'Graphics configurator', 'Network optimizer', 'Loadout manager', 'And more coming...'],
+                version: 'TBA', lastUpdated: 'Coming Soon', price: 19.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Requirements TBA']
+            },
+            'blackops7': {
+                id: 'blackops7', name: 'Black Ops 7', image: 'https://i.ibb.co/Z1dH7FzN/image-2025-11-04-144833260.png',
+                banner: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200', category: 'FPS', pricing: 'paid', status: 'coming-soon',
+                description: 'Coming soon! Black Ops 7 toolkit will be available at launch.',
+                features: ['FPS optimizer', 'Graphics settings manager', 'Camo tracker', 'Loadout optimizer', 'And more coming...'],
+                version: 'TBA', lastUpdated: 'Coming Soon', price: 19.99,
+                requirements: ['Windows 10/11 (64-bit)', 'Requirements TBA']
+            }
+        };
+
+        const games = Object.values(products);
+        const freeGames = games.filter(g => g.pricing === 'free');
+        const paidGames = games.filter(g => g.pricing === 'paid');
+
+        // Router
+        function getRoute() {
+            const hash = window.location.hash || '#/';
+            if (hash.startsWith('#/games/') || hash.startsWith('#/products/')) {
+                return { page: 'product', id: hash.replace('#/games/', '').replace('#/products/', '') };
+            }
+            return { page: 'home' };
+        }
+
+        function navigate(path) {
+            window.location.hash = path;
+        }
+
+        // Render Functions
+        function renderApp() {
+            const route = getRoute();
+            const app = document.getElementById('app');
             
-            // Paid Products
-            { id: 'league', name: 'League of Legends', image: 'https://i.ibb.co/1tyyhy5K/image-2025-11-04-150655644.png', status: 'available', category: 'MOBA', pricing: 'paid' },
-            { id: 'valorant', name: 'Valorant', image: 'https://i.ibb.co/27wmTgqm/V-Lockup-Horizontal-Pos-Red.png', status: 'available', category: 'FPS', pricing: 'paid' },
-            { id: 'apex', name: 'Apex Legends', image: 'https://i.ibb.co/ccDKJLkD/image-2025-11-04-151524012.png', status: 'available', category: 'Battle Royale', pricing: 'paid' },
-            { id: 'deltaforce', name: 'Delta Force', image: 'https://i.ibb.co/d0xw7SDj/image-2025-11-04-152122898.png', status: 'available', category: 'FPS', pricing: 'paid' },
-            { id: 'arcraiders', name: 'ARC Raiders', image: 'https://i.ibb.co/x4QrDc0/image-2025-11-04-151357982.png', status: 'coming-soon', category: 'PvPvE', pricing: 'paid' },
-            { id: 'rust', name: 'Rust', image: 'https://i.ibb.co/n8KvkP1b/image-2025-11-04-152356540.png', status: 'available', category: 'Survival', pricing: 'paid' },
-            { id: 'ark-evolved', name: 'ARK: Survival Evolved', image: 'https://i.ibb.co/Mk14x0yv/image-2025-11-04-152526734.png', status: 'available', category: 'Survival', pricing: 'paid' },
-            { id: 'ark-ascended', name: 'ARK: Survival Ascended', image: 'https://i.ibb.co/S7RkKStm/image-2025-11-04-152603289.png', status: 'available', category: 'Survival', pricing: 'paid' },
-            { id: 'battlefield6', name: 'Battlefield 6', image: 'https://i.ibb.co/pv1BkXpF/image-2025-11-04-144746248.png', status: 'coming-soon', category: 'FPS', pricing: 'paid' },
-            { id: 'blackops7', name: 'Black Ops 7', image: 'https://i.ibb.co/Z1dH7FzN/image-2025-11-04-144833260.png', status: 'coming-soon', category: 'FPS', pricing: 'paid' },
-        ];
+            if (route.page === 'product') {
+                app.innerHTML = renderProductPage(route.id);
+                initProductPage();
+            } else {
+                app.innerHTML = renderHomePage();
+                initHomePage();
+            }
+        }
 
-        // FAQ data
-        const faqs = [
-            { q: 'How do I get started?', a: 'Simply create an account, choose your product, and download our launcher. The setup process takes just a few minutes and our guides walk you through everything.' },
-            { q: 'What payment methods do you accept?', a: 'We accept all major credit cards, PayPal, and cryptocurrency. All payments are processed securely through our payment partners.' },
-            { q: 'Can I get a refund if I\'m not satisfied?', a: 'Yes! We offer a satisfaction guarantee on your first purchase. If you\'re not happy within the first 24 hours, contact support for a full refund.' },
-            { q: 'How often are products updated?', a: 'We push updates regularly to ensure compatibility with the latest game patches. Most updates are automatic through our launcher.' },
-            { q: 'Is there a Discord community?', a: 'Absolutely! Join our Discord server to connect with other users, get support, share tips, and stay updated on new features and releases.' },
-        ];
+        function renderHomePage() {
+            return `
+                <!-- Animated Background -->
+                <div class="fixed inset-0 pointer-events-none">
+                    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[150px] animate-pulse"></div>
+                    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[150px] animate-pulse" style="animation-delay: 1s;"></div>
+                    <div class="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-[120px] animate-pulse" style="animation-delay: 0.5s;"></div>
+                    <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px); background-size: 60px 60px;"></div>
+                </div>
 
-        // Render free games
-        const freeGamesGrid = document.getElementById('free-games-grid');
-        games.filter(g => g.pricing === 'free').forEach((game, index) => {
-            freeGamesGrid.appendChild(createGameCard(game, index));
-        });
+                <!-- Navigation -->
+                <nav class="fixed top-0 w-full z-50 transition-all duration-500" id="navbar">
+                    <div class="max-w-7xl mx-auto px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <a href="#/" class="flex items-center gap-3 group">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-cyan-400/30 rounded-xl blur-xl group-hover:bg-cyan-400/50 transition-all"></div>
+                                    <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-10 h-10 relative z-10">
+                                </div>
+                                <div>
+                                    <span class="text-xl font-bold tracking-tight">VULCAN</span>
+                                    <span class="text-cyan-400 font-light ml-1">Solutions</span>
+                                </div>
+                            </a>
+                            <div class="hidden md:flex items-center gap-8">
+                                <a href="#products" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Products</a>
+                                <a href="#features" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">Features</a>
+                                <a href="#faq" class="text-gray-400 hover:text-white transition-colors text-sm font-medium">FAQ</a>
+                            </div>
+                            <div class="hidden md:flex items-center gap-4">
+                                <button class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
+                                <button class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-sm hover:from-cyan-400 hover:to-blue-500 transition-all">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
 
-        // Render paid games
-        const paidGamesGrid = document.getElementById('paid-games-grid');
-        games.filter(g => g.pricing === 'paid').forEach((game, index) => {
-            paidGamesGrid.appendChild(createGameCard(game, index));
-        });
+                <!-- Hero Section -->
+                <section class="relative min-h-screen flex items-center pt-20">
+                    <div class="max-w-7xl mx-auto px-6 py-20 w-full">
+                        <div class="grid lg:grid-cols-2 gap-16 items-center">
+                            <div class="scroll-animate">
+                                <div class="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full text-cyan-400 text-sm mb-6">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    <span>Trusted by 10,000+ players worldwide</span>
+                                </div>
+                                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black leading-[1.1] mb-6">
+                                    Level Up Your
+                                    <span class="block mt-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">Gameplay</span>
+                                </h1>
+                                <p class="text-xl text-gray-400 mb-8 max-w-lg leading-relaxed">Premium gaming tools and utilities to enhance your experience. Your rank isn't luck — it's strategy.</p>
+                                <div class="flex flex-col sm:flex-row gap-4 mb-12">
+                                    <a href="#products" class="group flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-xl font-bold text-lg transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-105">
+                                        Browse Products
+                                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                                    </a>
+                                </div>
+                                <div class="grid grid-cols-3 gap-6">
+                                    <div><div class="text-3xl font-black text-white">10K+</div><div class="text-sm text-gray-500">Active Users</div></div>
+                                    <div><div class="text-3xl font-black text-white">99.9%</div><div class="text-sm text-gray-500">Uptime</div></div>
+                                    <div><div class="text-3xl font-black text-white">4.9★</div><div class="text-sm text-gray-500">Avg Rating</div></div>
+                                </div>
+                            </div>
+                            <div class="relative hidden lg:block scroll-animate">
+                                <div class="relative w-full h-[500px]">
+                                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/10 rounded-2xl p-6 shadow-2xl z-20">
+                                        <div class="flex items-center gap-4 mb-4">
+                                            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl flex items-center justify-center">
+                                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+                                            </div>
+                                            <div><div class="font-bold">Performance Boost</div><div class="text-sm text-gray-400">Active now</div></div>
+                                        </div>
+                                        <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">+45% FPS</div>
+                                        <div class="flex items-center gap-2 text-green-400 text-sm">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            Optimized settings applied
+                                        </div>
+                                    </div>
+                                    <div class="absolute top-10 right-10 bg-[#141b2d] border border-white/10 rounded-xl p-4 animate-float">
+                                        <div class="flex items-center gap-3">
+                                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                            <span class="text-sm">Secure & Undetected</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products" class="py-24 relative">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 scroll-animate">
+                            <h2 class="text-4xl md:text-5xl font-black mb-4">Our <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Products</span></h2>
+                            <p class="text-xl text-gray-400 max-w-2xl mx-auto">Premium tools for the most competitive games</p>
+                        </div>
+
+                        <!-- Free Products -->
+                        <div class="mb-16">
+                            <div class="flex items-center gap-3 mb-8 scroll-animate">
+                                <div class="px-4 py-2 bg-green-500/20 border border-green-500/30 rounded-lg">
+                                    <span class="text-green-400 font-bold text-sm">FREE</span>
+                                </div>
+                                <h3 class="text-2xl font-bold">Free Products</h3>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="free-games-grid"></div>
+                        </div>
+
+                        <!-- Paid Products -->
+                        <div>
+                            <div class="flex items-center gap-3 mb-8 scroll-animate">
+                                <div class="px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-lg">
+                                    <span class="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent font-bold text-sm">PREMIUM</span>
+                                </div>
+                                <h3 class="text-2xl font-bold">Premium Products</h3>
+                            </div>
+                            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="paid-games-grid"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="py-24 relative">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="text-center mb-16 scroll-animate">
+                            <h2 class="text-4xl md:text-5xl font-black mb-4">Why Choose <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Vulcan</span></h2>
+                            <p class="text-xl text-gray-400 max-w-2xl mx-auto">Built for performance, designed for gamers</p>
+                        </div>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="features-grid"></div>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section id="faq" class="py-24 relative">
+                    <div class="max-w-3xl mx-auto px-6">
+                        <div class="text-center mb-16 scroll-animate">
+                            <h2 class="text-4xl md:text-5xl font-black mb-4">Frequently Asked <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Questions</span></h2>
+                        </div>
+                        <div class="space-y-4" id="faq-container"></div>
+                    </div>
+                </section>
+
+                <!-- Footer -->
+                <footer class="py-12 border-t border-white/5 relative z-10">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-8 h-8">
+                                <span class="font-bold">VULCAN Solutions</span>
+                            </div>
+                            <div class="flex items-center gap-8 text-sm text-gray-400">
+                                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                                <a href="#" class="hover:text-white transition-colors">Contact</a>
+                            </div>
+                            <div class="text-sm text-gray-500">© 2024 Vulcan Solutions. All rights reserved.</div>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        function renderProductPage(productId) {
+            const product = products[productId] || { 
+                id: productId, name: productId, image: 'https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png',
+                banner: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200', category: 'Gaming', pricing: 'paid', status: 'coming-soon',
+                description: 'Coming soon...', features: ['Coming soon'], version: 'TBA', lastUpdated: 'Coming Soon', price: 14.99, requirements: ['Windows 10/11']
+            };
+
+            let actionButton = '';
+            if (product.status === 'coming-soon') {
+                actionButton = `
+                    <div class="text-center mb-6">
+                        <div class="text-3xl font-black text-yellow-400 mb-2">Coming Soon</div>
+                        <p class="text-gray-400 text-sm">Join the waitlist to get notified</p>
+                    </div>
+                    <button onclick="alert('You\\'ve been added to the waitlist!')" class="w-full py-4 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/30 text-yellow-400 rounded-xl font-bold text-lg transition-all">Join Waitlist</button>`;
+            } else if (product.pricing === 'free') {
+                actionButton = `
+                    <div class="text-center mb-6">
+                        <div class="text-4xl font-black text-green-400 mb-2">FREE</div>
+                        <p class="text-gray-400 text-sm">No payment required</p>
+                    </div>
+                    <button id="download-btn" class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        Download Now
+                    </button>
+                    <p class="text-center text-xs text-gray-500 mt-3">v${product.version} • Windows 10/11</p>`;
+            } else {
+                actionButton = `
+                    <div class="text-center mb-6">
+                        <div class="text-4xl font-black bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2">$${product.price}</div>
+                        <p class="text-gray-400 text-sm">One-time purchase • Lifetime access</p>
+                    </div>
+                    <button onclick="alert('Redirecting to purchase...')" class="w-full py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                        Purchase Now
+                    </button>
+                    <p class="text-center text-xs text-gray-500 mt-3">Instant download after purchase</p>`;
+            }
+
+            return `
+                <div class="fixed inset-0 pointer-events-none">
+                    <div class="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-500/10 rounded-full blur-[150px] animate-pulse"></div>
+                    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[150px] animate-pulse"></div>
+                </div>
+
+                <nav class="fixed top-0 w-full z-50 bg-[#0a0f1a]/90 backdrop-blur-xl border-b border-white/5">
+                    <div class="max-w-7xl mx-auto px-6 py-4">
+                        <div class="flex items-center justify-between">
+                            <a href="#/" class="flex items-center gap-3 group">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-cyan-400/30 rounded-xl blur-xl"></div>
+                                    <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-10 h-10 relative z-10">
+                                </div>
+                                <div>
+                                    <span class="text-xl font-bold tracking-tight">VULCAN</span>
+                                    <span class="text-cyan-400 font-light ml-1">Solutions</span>
+                                </div>
+                            </a>
+                            <div class="hidden md:flex items-center gap-4">
+                                <button class="text-sm font-medium text-gray-400 hover:text-white transition-colors">Sign In</button>
+                                <button class="px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg font-semibold text-sm">Get Started</button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+
+                <div class="relative pt-20">
+                    <div class="h-64 md:h-80 relative overflow-hidden">
+                        <img src="${product.banner}" alt="${product.name}" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#0a0f1a] via-[#0a0f1a]/60 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-[#0a0f1a]/80 to-transparent"></div>
+                    </div>
+
+                    <div class="absolute top-28 left-6 md:left-12">
+                        <a href="#/" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-6">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+                            <span>Back to Products</span>
+                        </a>
+                    </div>
+
+                    <div class="max-w-7xl mx-auto px-6 relative -mt-32 z-10">
+                        <div class="flex flex-col md:flex-row items-start gap-6">
+                            <div class="w-32 h-32 md:w-40 md:h-40 bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/10 rounded-2xl p-4 flex items-center justify-center shadow-2xl">
+                                <img src="${product.image}" alt="${product.name}" class="w-full h-full object-contain">
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex flex-wrap items-center gap-3 mb-2">
+                                    <span class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300">${product.category}</span>
+                                    ${product.pricing === 'free' ? '<span class="px-3 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-sm text-green-400 font-medium">Free</span>' : '<span class="px-3 py-1 bg-cyan-500/20 border border-cyan-500/30 rounded-full text-sm text-cyan-400 font-medium">Premium</span>'}
+                                    ${product.status === 'coming-soon' ? '<span class="px-3 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-sm text-yellow-400">Coming Soon</span>' : ''}
+                                </div>
+                                <h1 class="text-4xl md:text-5xl font-black mb-2">${product.name}</h1>
+                                <div class="flex items-center gap-4 text-sm text-gray-400">
+                                    <span>v${product.version}</span>
+                                    <span>•</span>
+                                    <span>Updated ${product.lastUpdated}</span>
+                                    ${product.downloads ? `<span>•</span><span>${product.downloads.toLocaleString()} downloads</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto px-6 py-12">
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <div class="lg:col-span-2 space-y-8">
+                            <div class="bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8">
+                                <h2 class="text-2xl font-bold mb-4">About</h2>
+                                <p class="text-gray-400 leading-relaxed">${product.description}</p>
+                            </div>
+                            <div class="bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8">
+                                <h2 class="text-2xl font-bold mb-6">Features</h2>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    ${product.features.map(f => `
+                                        <div class="flex items-start gap-3">
+                                            <div class="w-6 h-6 rounded-full bg-cyan-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                            </div>
+                                            <span class="text-gray-300">${f}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-8">
+                                <h2 class="text-2xl font-bold mb-6">System Requirements</h2>
+                                <ul class="space-y-3">
+                                    ${product.requirements.map(r => `<li class="flex items-center gap-3 text-gray-400"><div class="w-1.5 h-1.5 rounded-full bg-cyan-400"></div>${r}</li>`).join('')}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-1">
+                            <div class="sticky top-24 space-y-6">
+                                <div class="bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-6">
+                                    ${actionButton}
+                                </div>
+
+                                <div class="bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 rounded-2xl p-6 space-y-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                        </div>
+                                        <div><div class="font-semibold text-sm">Secure & Safe</div><div class="text-xs text-gray-500">Verified malware-free</div></div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                        </div>
+                                        <div><div class="font-semibold text-sm">Auto Updates</div><div class="text-xs text-gray-500">Always up-to-date</div></div>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center">
+                                            <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        </div>
+                                        <div><div class="font-semibold text-sm">24/7 Support</div><div class="text-xs text-gray-500">We're here to help</div></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="py-12 border-t border-white/5">
+                    <div class="max-w-7xl mx-auto px-6">
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                            <div class="flex items-center gap-3">
+                                <img src="https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png" alt="Vulcan" class="w-8 h-8">
+                                <span class="font-bold">VULCAN Solutions</span>
+                            </div>
+                            <div class="text-sm text-gray-500">© 2024 Vulcan Solutions. All rights reserved.</div>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
 
         function createGameCard(game, index) {
-            const gameCard = document.createElement('a');
-            gameCard.href = '#';
-            gameCard.className = 'scroll-animate group';
-            gameCard.style.transitionDelay = `${index * 50}ms`;
+            const div = document.createElement('a');
+            div.href = `#/games/${game.id}`;
+            div.className = 'scroll-animate group';
+            div.style.transitionDelay = `${index * 50}ms`;
             
             const pricingBadge = game.pricing === 'free' 
-                ? '<div class="absolute top-3 left-3 px-2 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-xs font-medium">Free</div>'
-                : '';
-            
+                ? '<div class="absolute top-3 left-3 px-2 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-400 text-xs font-medium">Free</div>' : '';
             const statusBadge = game.status === 'coming-soon' 
-                ? '<div class="absolute top-3 right-3 px-2 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-400 text-xs font-medium">Soon</div>' 
-                : '';
+                ? '<div class="absolute top-3 right-3 px-2 py-1 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-400 text-xs font-medium">Soon</div>' : '';
             
-            gameCard.innerHTML = `
+            div.innerHTML = `
                 <div class="relative bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/30 rounded-2xl p-6 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/10">
-                    ${pricingBadge}
-                    ${statusBadge}
+                    ${pricingBadge}${statusBadge}
                     <div class="w-20 h-20 mx-auto mb-4 rounded-xl bg-[#0a0f1a] p-3 flex items-center justify-center group-hover:scale-110 transition-transform">
                         <img src="${game.image}" alt="${game.name}" class="w-full h-full object-contain" loading="lazy">
                     </div>
@@ -479,62 +534,115 @@
                     </div>
                 </div>
             `;
-            return gameCard;
+            return div;
         }
 
-        // Render FAQs
-        const faqContainer = document.getElementById('faq-container');
-        faqs.forEach((faq, index) => {
-            const faqItem = document.createElement('div');
-            faqItem.className = 'scroll-animate';
-            faqItem.style.transitionDelay = `${index * 50}ms`;
-            faqItem.innerHTML = `
-                <button class="faq-btn w-full bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-xl p-6 text-left transition-all">
-                    <div class="flex items-center justify-between">
-                        <span class="font-semibold pr-4">${faq.q}</span>
-                        <svg class="faq-icon w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                    </div>
-                    <p class="faq-answer mt-4 text-gray-400 leading-relaxed hidden">${faq.a}</p>
-                </button>
-            `;
-            faqContainer.appendChild(faqItem);
-        });
+        function initHomePage() {
+            // Render game cards
+            const freeGrid = document.getElementById('free-games-grid');
+            const paidGrid = document.getElementById('paid-games-grid');
+            if (freeGrid) freeGames.forEach((g, i) => freeGrid.appendChild(createGameCard(g, i)));
+            if (paidGrid) paidGames.forEach((g, i) => paidGrid.appendChild(createGameCard(g, i)));
 
-        // FAQ toggle
-        document.querySelectorAll('.faq-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const answer = btn.querySelector('.faq-answer');
-                const icon = btn.querySelector('.faq-icon');
-                answer.classList.toggle('hidden');
-                icon.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
+            // Render features
+            const features = [
+                { icon: 'M13 10V3L4 14h7v7l9-11h-7z', title: 'Lightning Fast', desc: 'Optimized for performance with minimal system impact.', color: 'cyan' },
+                { icon: 'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', title: 'Secure & Private', desc: 'Your data stays yours with industry-standard encryption.', color: 'green' },
+                { icon: 'M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15', title: 'Auto Updates', desc: 'New features and patches delivered seamlessly.', color: 'purple' },
+                { icon: 'M5 13l4 4L19 7', title: 'Easy to Use', desc: 'Clean interface. Get started in minutes.', color: 'yellow' },
+                { icon: 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', title: 'Active Community', desc: 'Join our Discord to connect with other gamers.', color: 'blue' },
+                { icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z', title: '24/7 Support', desc: 'Our team is always available to help.', color: 'pink' }
+            ];
+            const featuresGrid = document.getElementById('features-grid');
+            if (featuresGrid) {
+                features.forEach((f, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'scroll-animate bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-2xl p-8 transition-all duration-300';
+                    div.style.transitionDelay = `${i * 100}ms`;
+                    div.innerHTML = `
+                        <div class="w-14 h-14 rounded-xl bg-${f.color}-500/10 flex items-center justify-center mb-6">
+                            <svg class="w-7 h-7 text-${f.color}-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${f.icon}"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">${f.title}</h3>
+                        <p class="text-gray-400 leading-relaxed">${f.desc}</p>
+                    `;
+                    featuresGrid.appendChild(div);
+                });
+            }
+
+            // Render FAQs
+            const faqs = [
+                { q: 'How do I get started?', a: 'Create an account, choose your product, and download our launcher. Setup takes just a few minutes.' },
+                { q: 'What payment methods do you accept?', a: 'We accept all major credit cards, PayPal, and cryptocurrency.' },
+                { q: 'Can I get a refund?', a: 'Yes! We offer a satisfaction guarantee within the first 24 hours.' },
+                { q: 'How often are products updated?', a: 'We push updates regularly to ensure compatibility with the latest game patches.' },
+                { q: 'Is there a Discord community?', a: 'Yes! Join our Discord server to connect with other users and get support.' }
+            ];
+            const faqContainer = document.getElementById('faq-container');
+            if (faqContainer) {
+                faqs.forEach((faq, i) => {
+                    const div = document.createElement('div');
+                    div.className = 'scroll-animate';
+                    div.style.transitionDelay = `${i * 50}ms`;
+                    div.innerHTML = `
+                        <button class="faq-btn w-full bg-gradient-to-br from-[#141b2d] to-[#0d1321] border border-white/5 hover:border-cyan-500/20 rounded-xl p-6 text-left transition-all">
+                            <div class="flex items-center justify-between">
+                                <span class="font-semibold pr-4">${faq.q}</span>
+                                <svg class="faq-icon w-5 h-5 text-cyan-400 flex-shrink-0 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </div>
+                            <p class="faq-answer mt-4 text-gray-400 leading-relaxed hidden">${faq.a}</p>
+                        </button>
+                    `;
+                    faqContainer.appendChild(div);
+                });
+
+                document.querySelectorAll('.faq-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const answer = btn.querySelector('.faq-answer');
+                        const icon = btn.querySelector('.faq-icon');
+                        answer.classList.toggle('hidden');
+                        icon.style.transform = answer.classList.contains('hidden') ? '' : 'rotate(180deg)';
+                    });
+                });
+            }
+
+            // Scroll animations
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+            // Navbar scroll
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (navbar) {
+                    navbar.classList.toggle('bg-[#0a0f1a]/90', window.scrollY > 50);
+                    navbar.classList.toggle('backdrop-blur-xl', window.scrollY > 50);
+                    navbar.classList.toggle('border-b', window.scrollY > 50);
+                    navbar.classList.toggle('border-white/5', window.scrollY > 50);
+                }
             });
-        });
+        }
 
-        // Scroll animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, { threshold: 0.1 });
+        function initProductPage() {
+            const downloadBtn = document.getElementById('download-btn');
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    const originalHTML = downloadBtn.innerHTML;
+                    downloadBtn.innerHTML = `<div class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Preparing Download...`;
+                    downloadBtn.disabled = true;
+                    setTimeout(() => {
+                        downloadBtn.innerHTML = originalHTML;
+                        downloadBtn.disabled = false;
+                        alert('Download started! Check your downloads folder.');
+                    }, 1500);
+                });
+            }
+        }
 
-        document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
-            navbar.classList.toggle('bg-[#0a0f1a]/90', window.scrollY > 50);
-            navbar.classList.toggle('backdrop-blur-xl', window.scrollY > 50);
-            navbar.classList.toggle('border-b', window.scrollY > 50);
-            navbar.classList.toggle('border-white/5', window.scrollY > 50);
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
+        // Initialize
+        window.addEventListener('hashchange', renderApp);
+        renderApp();
     </script>
 </body>
 </html>
