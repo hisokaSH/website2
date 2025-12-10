@@ -146,6 +146,11 @@
         const freeGames = games.filter(g => g.pricing === 'free');
         const paidGames = games.filter(g => g.pricing === 'paid');
 
+        // Download function
+        function downloadFile(url) {
+            window.location.href = url;
+        }
+
         // Router
         function getRoute() {
             const hash = window.location.hash || '#/';
@@ -357,10 +362,10 @@
                         <div class="text-4xl font-black text-green-400 mb-2">FREE</div>
                         <p class="text-gray-400 text-sm">No payment required</p>
                     </div>
-                    <a href="${product.downloadUrl}" target="_blank" rel="noopener noreferrer" class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3">
+                    <button onclick="downloadFile('${product.downloadUrl}')" class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 cursor-pointer">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         Download Now
-                    </a>
+                    </button>
                     <p class="text-center text-xs text-gray-500 mt-3">v${product.version} • Windows 10/11</p>`;
             } else {
                 actionButton = `
