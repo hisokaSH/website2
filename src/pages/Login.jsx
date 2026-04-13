@@ -60,15 +60,15 @@ export default function Login() {
 
             <div>
               <label className="block text-xs font-semibold text-ink-secondary uppercase tracking-wider mb-2">
-                Email
+                Username or Email
               </label>
               <input
-                type="email"
+                type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="input"
-                placeholder="you@example.com"
-                autoComplete="email"
+                placeholder="Near667 or you@example.com"
+                autoComplete="username"
                 required
               />
             </div>
