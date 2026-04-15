@@ -1,6 +1,7 @@
 import { Outlet, NavLink, useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../App'
 import { useState, useEffect, useRef } from 'react'
+import NotificationBell from './forum/NotificationBell'
 
 const LOGO_URL = 'https://i.ibb.co/fKxV1h9/image-2025-10-18-170600039-removebg-preview.png'
 
@@ -74,6 +75,7 @@ export default function Layout() {
 
             {/* Right side */}
             <div className="flex items-center gap-3">
+              {user && <NotificationBell />}
               {user ? (
                 <div className="relative" ref={menuRef}>
                   <button

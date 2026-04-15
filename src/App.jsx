@@ -9,6 +9,7 @@ import Admin from './pages/Admin'
 import Forum from './pages/Forum'
 import ForumCategory from './pages/ForumCategory'
 import ForumThread from './pages/ForumThread'
+import UserProfile from './pages/UserProfile'
 import Docs from './pages/Docs'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
@@ -155,6 +156,7 @@ function App() {
           <Route path="forum" element={user ? <Forum /> : <Navigate to="/login" />} />
           <Route path="forum/c/:slug" element={user ? <ForumCategory /> : <Navigate to="/login" />} />
           <Route path="forum/t/:id" element={user ? <ForumThread /> : <Navigate to="/login" />} />
+          <Route path="forum/u/:username" element={user ? <UserProfile /> : <Navigate to="/login" />} />
           <Route path="docs" element={user ? <Docs /> : <Navigate to="/login" />} />
           <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         </Route>
