@@ -9,6 +9,7 @@ import Admin from './pages/Admin'
 import Forum from './pages/Forum'
 import ForumCategory from './pages/ForumCategory'
 import ForumThread from './pages/ForumThread'
+import Docs from './pages/Docs'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
@@ -145,12 +146,16 @@ function App() {
       <Routes>
         <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />} />
         <Route path="/register" element={!user ? <Register /> : <Navigate to="/" />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route
+          path="/admin"
+          element={user && (user.role === 'admin' || user.is_admin) ? <Admin /> : <Navigate to="/login" />}
+        />
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="forum" element={<Forum />} />
-          <Route path="forum/c/:slug" element={<ForumCategory />} />
-          <Route path="forum/t/:id" element={<ForumThread />} />
+          <Route path="forum" element={user ? <Forum /> : <Navigate to="/login" />} />
+          <Route path="forum/c/:slug" element={user ? <ForumCategory /> : <Navigate to="/login" />} />
+          <Route path="forum/t/:id" element={user ? <ForumThread /> : <Navigate to="/login" />} />
+          <Route path="docs" element={user ? <Docs /> : <Navigate to="/login" />} />
           <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
         </Route>
       </Routes>

@@ -55,12 +55,15 @@ export default function Layout() {
             {/* Desktop nav */}
             <div className="hidden md:flex items-center gap-8">
               <NavLink to="/" end className={navLinkClass}>Home</NavLink>
-              <NavLink to="/forum" className={navLinkClass}>Forum</NavLink>
               {user && (
-                <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
+                <>
+                  <NavLink to="/forum" className={navLinkClass}>Forum</NavLink>
+                  <NavLink to="/docs" className={navLinkClass}>Docs</NavLink>
+                  <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
+                </>
               )}
               <a
-                href="https://discord.gg/vulcan"
+                href="https://discord.gg/vulcansolutions"
                 target="_blank"
                 rel="noreferrer"
                 className="text-sm font-medium text-ink-secondary hover:text-white transition-colors"
@@ -176,12 +179,15 @@ export default function Layout() {
           <div className="md:hidden border-t border-border-soft bg-bg-raised/95 backdrop-blur-xl">
             <div className="px-4 py-3 space-y-1">
               <NavLink to="/" end onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Home</NavLink>
-              <NavLink to="/forum" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Forum</NavLink>
               {user && (
-                <NavLink to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Dashboard</NavLink>
+                <>
+                  <NavLink to="/forum" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Forum</NavLink>
+                  <NavLink to="/docs" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Docs</NavLink>
+                  <NavLink to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="block py-2 text-sm font-medium text-ink-secondary hover:text-white">Dashboard</NavLink>
+                </>
               )}
               <a
-                href="https://discord.gg/vulcan"
+                href="https://discord.gg/vulcansolutions"
                 target="_blank"
                 rel="noreferrer"
                 className="block py-2 text-sm font-medium text-ink-secondary hover:text-white"
@@ -219,6 +225,7 @@ export default function Layout() {
               <ul className="space-y-2.5 text-sm">
                 <li><Link to="/" className="text-ink-secondary hover:text-white">Home</Link></li>
                 <li><Link to="/forum" className="text-ink-secondary hover:text-white">Forum</Link></li>
+                <li><Link to="/docs" className="text-ink-secondary hover:text-white">Docs</Link></li>
                 <li><Link to="/dashboard" className="text-ink-secondary hover:text-white">Dashboard</Link></li>
               </ul>
             </div>
@@ -226,9 +233,9 @@ export default function Layout() {
             <div>
               <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Community</h4>
               <ul className="space-y-2.5 text-sm">
-                <li><a href="https://discord.gg/vulcan" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Discord</a></li>
-                <li><a href="https://discord.gg/vulcan" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Shop</a></li>
-                <li><a href="https://discord.gg/vulcan" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Support</a></li>
+                <li><a href="https://discord.gg/vulcansolutions" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Discord</a></li>
+                <li><a href="https://discord.gg/vulcansolutions" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Shop</a></li>
+                <li><a href="https://discord.gg/vulcansolutions" target="_blank" rel="noreferrer" className="text-ink-secondary hover:text-white">Support</a></li>
               </ul>
             </div>
           </div>
