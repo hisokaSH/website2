@@ -98,14 +98,14 @@ export default function Dashboard() {
   const handleConnectAgent = async () => {
     const result = await connectAgent()
     if (!result.success) {
-      alert(result.error || 'Failed to connect. Make sure the agent is running.')
+      alert(result.error || 'Failed to connect. Make sure the Vulcan loader is running.')
     }
   }
 
   const handleStartProduct = async (productId) => {
     const result = await startProduct(productId)
     if (!result.success) {
-      alert(result.error || 'Failed to start. Make sure the agent is connected.')
+      alert(result.error || 'Failed to start. Make sure the Vulcan loader is connected.')
     }
   }
 
@@ -319,8 +319,8 @@ export default function Dashboard() {
                 <svg className="w-8 h-8 text-[#ff4444] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <div className="text-white font-medium group-hover:text-[#ff4444] transition-colors">Connect Agent</div>
-                <div className="text-xs text-[#666] mt-1">Link your desktop app</div>
+                <div className="text-white font-medium group-hover:text-[#ff4444] transition-colors">Connect Loader</div>
+                <div className="text-xs text-[#666] mt-1">Link the Vulcan loader</div>
               </button>
 
               <Link
@@ -335,14 +335,14 @@ export default function Dashboard() {
               </Link>
 
               <a
-                href={`${API_URL}/download/VulcanAgent-Setup.exe`}
+                href={`${API_URL}/updates/vulcan-loader-latest.exe`}
                 className="p-4 border border-[#1f1f2e] rounded hover:border-[#ff4444] transition-colors group text-left"
               >
                 <svg className="w-8 h-8 text-[#ff4444] mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                <div className="text-white font-medium group-hover:text-[#ff4444] transition-colors">Download Agent</div>
-                <div className="text-xs text-[#666] mt-1">Get the desktop app</div>
+                <div className="text-white font-medium group-hover:text-[#ff4444] transition-colors">Download Loader</div>
+                <div className="text-xs text-[#666] mt-1">Get the Vulcan loader</div>
               </a>
 
               <a
