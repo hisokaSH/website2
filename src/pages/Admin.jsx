@@ -89,7 +89,7 @@ export default function Admin() {
 
       <div className="max-w-7xl mx-auto p-6">
         <div className="flex gap-2 mb-6 overflow-x-auto">
-          {['dashboard', 'users', 'licenses', 'generate'].map(tab => (
+          {['dashboard', 'users', 'licenses', 'generate', 'products'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -106,6 +106,7 @@ export default function Admin() {
         {activeTab === 'users'     && <Users showMessage={showMessage} />}
         {activeTab === 'licenses'  && <Licenses showMessage={showMessage} />}
         {activeTab === 'generate'  && <Generate showMessage={showMessage} />}
+        {activeTab === 'products'  && <Products showMessage={showMessage} />}
       </div>
     </div>
   )
@@ -681,6 +682,127 @@ function Generate({ showMessage }) {
             ))}
         </div>
       </div>
+    </div>
+  )
+}
+
+// ── Products (pause / unpause loaders) ────────────────────────────────────────
+function Products({ showMessage }) {
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [busySlug, setBusySlug] = useState(null)
+  const [versionDraft, setVersionDraft] = useState({})
+
+  const load = useCallback(async () => {
+    setLoading(true)
+    try {
+      const p = await apiCall('/api/products/all')
+      setProducts(p)
+      setVersionDraft(Object.fromEntries(p.map(x => [x.slug, x.version])))
+    } catch (e) {
+      showMessage(e.message, 'error')
+    } finally {
+      setLoading(false)
+    }
+  }, [showMessage])
+
+  useEffect(() => { load() }, []) // eslint-disable-line
+
+  const update = async (slug, updates) => {
+    setBusySlug(slug)
+    try {
+      await apiCall(`/api/admin/products/${slug}`, { method: 'PATCH', body: updates })
+      showMessage('Updated')
+      await load()
+    } catch (e) {
+      showMessage(e.message, 'error')
+    } finally {
+      setBusySlug(null)
+    }
+  }
+
+  const statusClasses = (status) =>
+    status === 'active'      ? 'bg-green-900/30 text-green-400'  :
+    status === 'maintenance' ? 'bg-red-900/40 text-red-400'       :
+                               'bg-blue-900/30 text-blue-400'
+
+  return (
+    <div className="bg-[#111] border border-[#222] rounded-lg overflow-hidden">
+      <table className="w-full">
+        <thead className="bg-[#0a0a0a]">
+          <tr>
+            <th className="text-left px-4 py-3 text-gray-400 text-xs font-mono">PRODUCT</th>
+            <th className="text-left px-4 py-3 text-gray-400 text-xs font-mono">STATUS</th>
+            <th className="text-left px-4 py-3 text-gray-400 text-xs font-mono">VERSION</th>
+            <th className="text-left px-4 py-3 text-gray-400 text-xs font-mono">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          {loading
+            ? <tr><td colSpan="4" className="text-center py-8 text-gray-500 font-mono text-sm">Loading…</td></tr>
+            : products.length === 0
+              ? <tr><td colSpan="4" className="text-center py-8 text-gray-500 font-mono text-sm">No products</td></tr>
+              : products.map(p => {
+                const paused = p.status === 'maintenance'
+                const soon   = p.status === 'coming_soon'
+                const busy   = busySlug === p.slug
+                const draft  = versionDraft[p.slug] ?? p.version
+                const dirty  = draft !== p.version
+
+                return (
+                  <tr key={p.slug} className="border-t border-[#222] hover:bg-[#1a1a1a]">
+                    <td className="px-4 py-3">
+                      <div className="text-white font-mono text-sm">{p.name}</div>
+                      <div className="text-gray-500 font-mono text-xs">{p.slug}</div>
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2 py-0.5 rounded text-[10px] font-mono ${statusClasses(p.status)}`}>
+                        {paused ? 'PAUSED' : soon ? 'SOON' : 'LIVE'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <input
+                        value={draft}
+                        onChange={e => setVersionDraft(prev => ({ ...prev, [p.slug]: e.target.value }))}
+                        className="w-24 bg-[#0a0a0a] border border-[#333] rounded px-2 py-1 text-white font-mono text-xs"
+                        placeholder="version"
+                      />
+                      <button
+                        disabled={busy || !dirty || !draft.trim()}
+                        onClick={() => update(p.slug, { version: draft.trim() })}
+                        className="ml-2 text-green-500 hover:text-green-400 disabled:text-gray-700 text-xs font-mono"
+                      >SAVE</button>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex gap-2 flex-wrap">
+                        {paused ? (
+                          <button
+                            disabled={busy}
+                            onClick={() => update(p.slug, { status: 'active' })}
+                            className="bg-green-900/40 hover:bg-green-900/60 border border-green-800 text-green-400 px-3 py-1 rounded text-xs font-mono disabled:opacity-50"
+                          >RESUME</button>
+                        ) : (
+                          <button
+                            disabled={busy}
+                            onClick={() => update(p.slug, { status: 'maintenance' })}
+                            className="bg-red-900/40 hover:bg-red-900/60 border border-red-800 text-red-400 px-3 py-1 rounded text-xs font-mono disabled:opacity-50"
+                          >PAUSE</button>
+                        )}
+                        {!soon && (
+                          <button
+                            disabled={busy}
+                            onClick={() => update(p.slug, { status: 'coming_soon' })}
+                            className="bg-[#111] hover:bg-[#1a1a1a] border border-[#333] text-gray-400 px-3 py-1 rounded text-xs font-mono disabled:opacity-50"
+                            title="Hide as 'coming soon'"
+                          >HIDE</button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                )
+              })}
+        </tbody>
+      </table>
     </div>
   )
 }
