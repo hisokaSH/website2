@@ -11,6 +11,7 @@ import ForumCategory from './pages/ForumCategory'
 import ForumThread from './pages/ForumThread'
 import UserProfile from './pages/UserProfile'
 import Docs from './pages/Docs'
+import AI from './pages/AI'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 
@@ -159,6 +160,7 @@ function App() {
           <Route path="forum/u/:username" element={user ? <UserProfile /> : <Navigate to="/login" />} />
           <Route path="docs" element={user ? <Docs /> : <Navigate to="/login" />} />
           <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
+          <Route path="ai" element={user ? <AI /> : <Navigate to="/login" />} />
         </Route>
       </Routes>
     </AuthContext.Provider>
