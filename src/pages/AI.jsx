@@ -6,6 +6,11 @@ import { useAuth } from '../App'
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const MAX_FILE_BYTES = 50 * 1024 * 1024  // mirror backend cap
 
+// Tool-progress markers: Unicode Private-Use Area chars — never appear in
+// normal text content, so we can safely embed/parse them in the chat string.
+const TOOL_OPEN = String.fromCodePoint(0xE100)
+const TOOL_CLOSE = String.fromCodePoint(0xE101)
+
 function fmtSize(n) {
   if (n < 1024) return `${n} B`
   if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`
@@ -14,6 +19,29 @@ function fmtSize(n) {
 
 function isImage(file) {
   return file.type?.startsWith('image/')
+}
+
+// Parse assistant content with embedded tool-progress markers and render
+// them as styled trace blocks while regular text is shown inline.
+function renderContent(content) {
+  if (!content) return null
+  const re = new RegExp(TOOL_OPEN + '([^' + TOOL_CLOSE + ']+)' + TOOL_CLOSE, 'g')
+  const parts = content.split(re)
+  return parts.map((part, i) => {
+    if (i % 2 === 0) {
+      return part
+        ? <span key={i} className="whitespace-pre-wrap break-words">{part}</span>
+        : null
+    }
+    return (
+      <div
+        key={i}
+        className="my-2 px-3 py-1.5 rounded-md bg-bg-overlay border-l-2 border-flame-500/60 font-mono text-xs text-ink-secondary break-all"
+      >
+        {part}
+      </div>
+    )
+  })
 }
 
 export default function AI() {
@@ -66,7 +94,7 @@ export default function AI() {
 
   const onFileInput = (e) => {
     queueFiles(e.target.files)
-    e.target.value = ''  // allow re-selecting same file
+    e.target.value = ''
   }
 
   const send = async (e) => {
@@ -106,7 +134,7 @@ export default function AI() {
       }
     }
 
-    // 2. compose user message: add attachment list as a footer if any
+    // 2. compose user message
     let composed = text
     if (uploadedPaths.length) {
       const attachments = uploadedPaths
@@ -150,6 +178,7 @@ export default function AI() {
       const reader = res.body.getReader()
       const decoder = new TextDecoder()
       let buf = ''
+      let currentEvent = null
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
@@ -157,9 +186,37 @@ export default function AI() {
         const lines = buf.split('\n')
         buf = lines.pop() ?? ''
         for (const line of lines) {
+          // SSE blank line = end of event; reset
+          if (line === '') { currentEvent = null; continue }
+          if (line.startsWith('event: ')) {
+            currentEvent = line.slice(7).trim()
+            continue
+          }
           if (!line.startsWith('data: ')) continue
           const payload = line.slice(6).trim()
           if (!payload || payload === '[DONE]') continue
+
+          // Hermes tool-progress event — render inline as a styled trace block
+          if (currentEvent === 'hermes.tool.progress') {
+            try {
+              const ev = JSON.parse(payload)
+              const emoji = ev.emoji || '🔧'
+              const label = ev.label || ev.tool || 'tool'
+              const traceLine = '\n' + TOOL_OPEN + emoji + ' ' + label + TOOL_CLOSE + '\n'
+              setMessages((m) => {
+                const copy = [...m]
+                const last = copy[copy.length - 1]
+                copy[copy.length - 1] = {
+                  ...last,
+                  content: (last.content || '') + traceLine,
+                }
+                return copy
+              })
+            } catch { /* ignore malformed event */ }
+            continue
+          }
+
+          // Regular delta.content
           try {
             const j = JSON.parse(payload)
             const delta = j.choices?.[0]?.delta?.content ?? j.choices?.[0]?.message?.content ?? ''
@@ -167,6 +224,7 @@ export default function AI() {
               setMessages((m) => {
                 const copy = [...m]
                 copy[copy.length - 1] = {
+                  ...copy[copy.length - 1],
                   role: 'assistant',
                   content: (copy[copy.length - 1].content || '') + delta,
                 }
@@ -224,7 +282,7 @@ export default function AI() {
         )}
       </div>
 
-      {/* Chat window (also the drop target highlight) */}
+      {/* Chat window */}
       <div
         ref={scrollRef}
         className={`flex-1 overflow-y-auto rounded-xl border ${dragOver ? 'border-flame-500 bg-flame-500/5' : 'border-border-soft bg-bg-raised/50'} backdrop-blur-sm p-4 sm:p-6 mb-4 transition-colors`}
@@ -274,17 +332,25 @@ export default function AI() {
                   ))}
                 </div>
               )}
-              <div className="text-sm leading-relaxed whitespace-pre-wrap break-words text-ink-primary">
-                {m.content || (m.role === 'assistant' && streaming ? (
-                  <Loader2 className="w-4 h-4 animate-spin text-flame-500" />
-                ) : '')}
+              <div className="text-sm leading-relaxed text-ink-primary">
+                {m.content
+                  ? renderContent(m.content)
+                  : (m.role === 'assistant' && streaming ? (
+                      <span className="inline-flex items-center gap-2 text-ink-muted text-xs font-mono">
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-flame-500" />
+                        thinking…
+                      </span>
+                    ) : '')}
+                {m.role === 'assistant' && streaming && i === messages.length - 1 && m.content && (
+                  <span className="inline-block w-2 h-4 ml-1 bg-flame-500/60 animate-pulse align-middle" />
+                )}
               </div>
             </motion.div>
           ))}
         </AnimatePresence>
       </div>
 
-      {/* Pending uploads (chips above input) */}
+      {/* Pending uploads */}
       {pending.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-3">
           {pending.map((p, i) => (
