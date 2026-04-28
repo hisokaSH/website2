@@ -1,0 +1,9 @@
+{
+  "server_ip": "100.65.239.55",
+  "server_port": 7777,
+  "server_name": "Capa Island",
+  "udk_download_url": "https://github.com/hisokaSH/website2/releases/download/v1.0.0/udk.zip",
+  "news": [
+    {"date": "2026-04-27", "text": "Server is live. Welcome to the tribe."}
+  ]
+}
