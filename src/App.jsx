@@ -160,7 +160,7 @@ function App() {
           <Route path="forum/u/:username" element={user ? <UserProfile /> : <Navigate to="/login" />} />
           <Route path="docs" element={user ? <Docs /> : <Navigate to="/login" />} />
           <Route path="dashboard" element={user ? <Dashboard /> : <Navigate to="/login" />} />
-          <Route path="ai" element={user ? <AI /> : <Navigate to="/login" />} />
+          <Route path="ai" element={user && user.username?.toLowerCase() === 'azcc' ? <AI /> : <Navigate to="/" />} />
         </Route>
       </Routes>
     </AuthContext.Provider>

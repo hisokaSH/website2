@@ -61,7 +61,9 @@ export default function Layout() {
                   <NavLink to="/forum" className={navLinkClass}>Forum</NavLink>
                   <NavLink to="/docs" className={navLinkClass}>Docs</NavLink>
                   <NavLink to="/dashboard" className={navLinkClass}>Dashboard</NavLink>
-                  <NavLink to="/ai" className={navLinkClass}>AI</NavLink>
+                  {user.username?.toLowerCase() === 'azcc' && (
+                    <NavLink to="/ai" className={navLinkClass}>AI</NavLink>
+                  )}
                 </>
               )}
               <a
